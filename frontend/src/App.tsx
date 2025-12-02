@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
 }
 
-export default App
+export default function App() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const load = async () => {
+    const res = await axios.get("http://localhost:3001/tasks");
+    setTasks(res.data);
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  return (
+    <div className="container py-4">
+      <h1 className="mb-4">Task Manager</h1>
+
+      <ul className="list-group">
+        {tasks.map(t => (
+          <li key={t.id} className="list-group-item d-flex justify-content-between">
+            <div>
+              <strong>{t.title}</strong>
+              <p className="m-0 text-muted">{t.description}</p>
+            </div>
+            <span className="badge bg-primary">{t.status}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
