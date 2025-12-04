@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/firebase.ts","./src/main.tsx","./src/router.tsx","./src/components/comment.tsx","./src/components/taskitem.tsx","./src/pages/projectdetails.tsx","./src/pages/projectslist.tsx","./src/pages/taskdetails.tsx","./src/types/comment.ts","./src/types/project.ts","./src/types/task.ts"],"version":"5.9.3"}
